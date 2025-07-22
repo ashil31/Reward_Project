@@ -3,11 +3,12 @@ import RedeemPage from "./pages/RedeemPage";
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/redeem/:token" element={<RedeemPage />} />
+        {/* ... */}
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 
