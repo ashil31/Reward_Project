@@ -25,7 +25,7 @@ const RedeemPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/rewards/claim", {
+      const response = await axios.post("https://reward-project.onrender.com/api/rewards/claim", {
         ...formData,
         qrToken: token,
       });
