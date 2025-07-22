@@ -1,0 +1,14 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RedeemPage from "./pages/RedeemPage";
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/redeem/:token" element={<RedeemPage />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
