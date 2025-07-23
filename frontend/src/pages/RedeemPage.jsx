@@ -72,20 +72,22 @@ const RedeemPage = () => {
               required: false,
             },
           ].map(({ name, type, label, required }) => (
-            <div key={name} className="relative w-full">
+            <div key={name} className="relative mt-8 w-full">
               <input
                 type={type}
                 name={name}
+                id={name}
                 required={required}
                 onChange={handleChange}
-                placeholder={label}
-                className="peer w-full px-4 pt-5 pb-2 border border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-[#1c1c1c] text-gray-900 dark:text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition duration-300"
+                autoComplete="off"
+                placeholder=" " // important: a space only
+                className="peer block w-full appearance-none px-4 pt-6 pb-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1c1c1c] text-sm text-gray-900 dark:text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
               />
               <label
                 htmlFor={name}
-                className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 text-sm transition-all duration-200 
-          peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 
-          peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-500 dark:peer-focus:text-blue-400"
+                className="absolute left-4 top-2 text-gray-500 dark:text-gray-400 text-sm transition-all duration-200 
+      peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 
+      peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500 dark:peer-focus:text-blue-400"
               >
                 {label}
               </label>
