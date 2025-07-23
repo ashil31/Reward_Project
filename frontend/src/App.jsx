@@ -1,29 +1,32 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import RedeemPage from "./pages/RedeemPage";
+import Home from "./pages/Home";
+import RedeemError from "./pages/RedeemError";
+import Navbar from "./components/Navbar";
+import Loader from "./components/Loader";
+import { ThemeProvider } from "./context/ThemeContext";
 
-const Home = () => (
-  <div>
-    <h1>Welcome to Reward Portal</h1>
-    <p>Scan your QR to claim rewards.</p>
-  </div>
-);
+const App = () => {
+  const [loading, setLoading] = useState(true);
 
-const RedeemError = () => (
-  <div>
-    <h1>Oops!</h1>
-    <p>Invalid access. Please scan your QR to claim a reward.</p>
-  </div>
-);
-
-const App = () => (
-  <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/redeem/:token" element={<RedeemPage />} />
-      <Route path="/redeem-error" element={<RedeemError />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  </Router>
-);
+  return (
+    <ThemeProvider>
+      {loading ? (
+        <Loader onComplete={() => setLoading(false)} />
+      ) : (
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/redeem/:token" element={<RedeemPage />} />
+            <Route path="/redeem-error" element={<RedeemError />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Router>
+      )}
+    </ThemeProvider>
+  );
+};
 
 export default App;
