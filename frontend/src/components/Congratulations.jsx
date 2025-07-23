@@ -3,15 +3,15 @@ import gsap from "gsap";
 import Lottie from "lottie-react";
 
 import confettiAnim from "../assets/confetti.json";
-import rewardSound from "../assets/reward.mp3"; // Make sure this is placed correctly
+// import rewardSound from "../assets/reward.mp3"; // Make sure this is placed correctly
 
 const Congratulations = ({ rewardAmount }) => {
   const containerRef = useRef();
 
   useEffect(() => {
     // 🎵 Play reward sound
-    const audio = new Audio(rewardSound);
-    audio.play();
+    // const audio = new Audio(rewardSound);
+    // audio.play();
 
     // 💥 GSAP zoom-in animation
     gsap.fromTo(
@@ -22,9 +22,9 @@ const Congratulations = ({ rewardAmount }) => {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen px-4 py-10">
+    <div className="relative w-screen h-screen flex items-center justify-center px-4 py-10 overflow-hidden">
       {/* 🎊 Lottie Confetti Animation */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
         <Lottie
           animationData={confettiAnim}
           loop={false}

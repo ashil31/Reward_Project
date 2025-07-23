@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Congratulations from "../components/Congratulations";
+import rewardSound from "../assets/reward.mp3"; // Make sure it's correctly imported
+
 
 const RedeemPage = () => {
   const { token } = useParams();
@@ -30,8 +32,16 @@ const RedeemPage = () => {
           qrToken: token,
         }
       );
+
       setRewardAmount(response.data.rewardAmount);
       setSubmitted(true);
+
+      // ✅ Play reward sound AFTER submission
+      const audio = new Audio(rewardSound);
+      audio.volume = 1; // Set volume (optional)
+      await audio.play().catch((err) => {
+        console.warn("🔇 Audio play failed (maybe blocked by browser):", err);
+      });
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     }
