@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Congratulations from "../components/Congratulations";
 import rewardSound from "../assets/reward.mp3";
-import { cn } from "../libs/utils";
+// import { cn } from "../libs/utils";
+// import flowellIcon from "../assets/flowell-icon.png";
 import OccupationSelect from "../components/OccupationSelect ";
-import flowellIcon from "../assets/flowell-icon.png";
+import BackgroundEffects from "../components/BackgroundEffects";
 
 const RedeemPage = () => {
   const { token } = useParams();
@@ -55,41 +56,8 @@ const RedeemPage = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white">
-      <div
-        className={cn(
-          "absolute inset-0 z-0",
-          "[background-size:20px_20px]",
-          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
-          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]"
-        )}
-      />
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
-      {/* 🔄 Rotating Flowell Pump Icons (Light Mode Only) */}
-      <div className="absolute inset-0 z-0 hidden dark:hidden lg:flex items-center justify-center pointer-events-none">
-        <div className="relative w-[400px] h-[400px] animate-spin-slower">
-          {Array.from({ length: 8 }).map((_, i) => {
-            const angle = (360 / 8) * i;
-            const radius = 160;
-            const x = radius * Math.cos((angle * Math.PI) / 180);
-            const y = radius * Math.sin((angle * Math.PI) / 180);
-
-            return (
-              <img
-                key={i}
-                src={flowellIcon} // ✅ Replace with actual image path
-                alt="Flowell Pump"
-                className="absolute w-12 h-12 opacity-20"
-                style={{
-                  top: `calc(50% + ${y}px - 24px)`,
-                  left: `calc(50% + ${x}px - 24px)`,
-                }}
-              />
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-12 transition-all duration-500">
+      <BackgroundEffects />
+      <div className="relative z-20 min-h-screen flex items-center justify-center px-4 py-12 transition-all duration-500">
         {!submitted ? (
           <form
             onSubmit={handleSubmit}

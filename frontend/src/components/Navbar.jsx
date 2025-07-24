@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="overflow-hidden
+      className="z-20 overflow-hidden
              backdrop-blur-lg bg-white/70 dark:bg-[#0e0e0e] shadow-lg border-b border-gray-100 dark:border-[#121212] px-6 py-4 md:px-10 md:py-5 flex justify-between items-center transition-all duration-500">
       <img
         src={theme === "dark" ? darkLogo : lightLogo}

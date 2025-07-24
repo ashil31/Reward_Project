@@ -102,3 +102,17 @@ html.dark .moon > circle {
     transform: translateX(-50%);
   }
 }
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+/* Dotted circle stroke with rounded caps and custom dash pattern */
+.dotted-circle {
+    stroke-linecap: round;
+    stroke-width: 3;
+    stroke-dasharray: 8 8 3 8; /* Dash pattern: longer dash, gap, shorter dash, gap */
+    transition: stroke 0.3s ease;
+}
+
+
+
