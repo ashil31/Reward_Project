@@ -4,7 +4,6 @@ const QrCode = require("../models/QrCode.model");
 const getRandomReward = require("../utils/rewardGenerator");
 const STATUS = require("../config/statusCodes");
 
-// controllers/rewardController.js
 module.exports.claimReward = async (req, res) => {
   try {
     const {
@@ -20,17 +19,20 @@ module.exports.claimReward = async (req, res) => {
       qrToken,
     } = req.body;
 
+    // Validate required fields
     if (!name || !phone || !occupation || !pumpSerial || !paymentMethod || !qrToken) {
-      return res.status(400).json({ message: "Missing required fields" });
+      return res.status(STATUS.BAD_REQUEST).json({ message: "Missing required fields" });
     }
 
-    // Validate QR token
+    // Check QR token
     const qr = await QrCode.findOne({ token: qrToken });
     if (!qr || qr.used) {
-      return res.status(404).json({ message: "Invalid QR code" });
+      return res.status(STATUS.NOT_FOUND).json({ message: "Invalid or already used QR code" });
     }
 
     const amount = getRandomReward();
+
+    // Create user entry
     const user = await User.create({
       name,
       phone,
@@ -41,20 +43,25 @@ module.exports.claimReward = async (req, res) => {
       accountNumber: paymentMethod === "bank" ? accountNumber : "",
       ifsc: paymentMethod === "bank" ? ifsc : "",
       beneficiaryName: paymentMethod === "bank" ? beneficiaryName : "",
-      qrToken,
-      rewardAmount: amount,
-      used: true,
+      qrSerialNumber: qr.serialNumber,
     });
 
+    // Create reward entry
+    const reward = await Reward.create({
+      user: user._id,
+      qrCode: qr._id,
+      amount,
+    });
 
-    const reward = await Reward.create({ user: user._id, qrCode: qr._id, amount });
-
+    // Mark QR code as used
     qr.used = true;
     await qr.save();
 
-    res.status(201).json({ message: "Reward claimed", rewardAmount: reward.amount });
+    res.status(STATUS.CREATED).json({
+      message: "Reward claimed successfully! You'll receive it within 3 business days."
+    });
   } catch (error) {
     console.error("Error in claimReward:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(STATUS.SERVER_ERROR).json({ message: "Server error" });
   }
 };

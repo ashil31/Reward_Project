@@ -3,15 +3,11 @@ import gsap from "gsap";
 import Lottie from "lottie-react";
 
 import confettiAnim from "../assets/confetti.json";
-// import rewardSound from "../assets/reward.mp3";
 
 const Congratulations = () => {
   const containerRef = useRef();
 
   useEffect(() => {
-    // Optional sound
-    // const audio = new Audio(rewardSound);
-    // audio.play();
 
     gsap.fromTo(
       containerRef.current,

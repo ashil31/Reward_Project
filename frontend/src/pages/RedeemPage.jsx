@@ -22,7 +22,6 @@ const RedeemPage = () => {
     beneficiaryName: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [rewardAmount, setRewardAmount] = useState(null);
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
@@ -37,11 +36,10 @@ const RedeemPage = () => {
         ...formData,
         qrToken: token,
       };
-      const response = await axios.post(
+      await axios.post(
         "https://reward-project.onrender.com/api/rewards/claim",
         payload
       );
-      setRewardAmount(response.data.rewardAmount);
       setSubmitted(true);
 
       const audio = new Audio(rewardSound);
@@ -248,7 +246,7 @@ const RedeemPage = () => {
             </button>
           </form>
         ) : (
-          <Congratulations rewardAmount={rewardAmount} />
+          <Congratulations />
         )}
       </div>
     </div>

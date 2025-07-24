@@ -2,52 +2,48 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    name: { 
-      type: String, 
-      required: true 
+    name: {
+      type: String,
+      required: true,
     },
-    phone: { 
-      type: String, 
-      required: true  
+    phone: {
+      type: String,
+      required: true,
     },
     occupation: {
-      type: String, 
-      required: true 
+      type: String,
+      required: true,
     },
-    pumpSerialNumber: { 
-      type: String, 
-      required: true 
-    }, // from `pumpSerial`
-    paymentMethod: { 
-      type: String, 
-      enum: ["upi", "bank"], 
-      required: true 
+    pumpSerialNumber: {
+      type: String,
+      required: true,
     },
-    upiId: { 
-      type: String 
-    }, // optional if paymentMethod === "upi"
-    accountNumber: { 
-      type: String 
-    }, // optional if paymentMethod === "bank"
-    ifsc: { 
-      type: String 
+    paymentMethod: {
+      type: String,
+      enum: ["upi", "bank"],
+      required: true,
     },
-    beneficiaryName: { 
-      type: String 
+    upiId: {
+      type: String,
     },
-    qrToken: { 
-      type: String, 
-      required: true 
+    accountNumber: {
+      type: String,
     },
-    used: { 
-      type: Boolean, 
-      default: false 
+    ifsc: {
+      type: String,
     },
-    rewardAmount: { 
-      type: Number 
+    beneficiaryName: {
+      type: String,
+    },
+    used: {
+      type: Boolean,
+      default: false,
+    },
+    qrSerialNumber: {
+      type: String,
+      required: true,
     },
   },
-  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);
