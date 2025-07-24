@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 const occupations = [
-  "Electrical",
+  "Wire Man",
   "Plumber",
-  "Business",
+  "Business Man",
   "Job",
   "Other",
 ];
