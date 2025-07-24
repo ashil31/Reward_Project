@@ -30,12 +30,7 @@ module.exports.claimReward = async (req, res) => {
       return res.status(404).json({ message: "Invalid QR code" });
     }
 
-    // Check if token is already used
-    const existingUser = await User.findOne({ qrToken });
-    if (existingUser) {
-      return res.status(400).json({ message: "QR code already used" });
-    }
-
+    const amount = getRandomReward();
     const user = await User.create({
       name,
       phone,
@@ -47,11 +42,11 @@ module.exports.claimReward = async (req, res) => {
       ifsc: paymentMethod === "bank" ? ifsc : "",
       beneficiaryName: paymentMethod === "bank" ? beneficiaryName : "",
       qrToken,
-      rewardAmount: reward.amount,
+      rewardAmount: amount,
       used: true,
     });
 
-    const amount = getRandomReward();
+
     const reward = await Reward.create({ user: user._id, qrCode: qr._id, amount });
 
     qr.used = true;
