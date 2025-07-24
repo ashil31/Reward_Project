@@ -1,3 +1,4 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import RedeemPage from "./pages/RedeemPage";
@@ -6,6 +7,7 @@ import RedeemError from "./pages/RedeemError";
 import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
 import { ThemeProvider } from "./context/ThemeContext";
+import AnnouncementBar from "./components/AnnouncementBar";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -16,6 +18,7 @@ const App = () => {
         <Loader onComplete={() => setLoading(false)} />
       ) : (
         <Router>
+          <AnnouncementBar />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
