@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    rewardSent: { 
+      type: Boolean, 
+      default: false 
+    },
   },
 );
 
