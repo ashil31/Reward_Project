@@ -44,7 +44,7 @@ module.exports.claimReward = async (req, res) => {
       ifsc: paymentMethod === "bank" ? ifsc : "",
       beneficiaryName: paymentMethod === "bank" ? beneficiaryName : "",
       qrSerialNumber: qr.serialNumber,
-      rewardSent: false,
+      rewardSent: "NO",
     });
 
     // Create reward entry
@@ -52,7 +52,7 @@ module.exports.claimReward = async (req, res) => {
       user: user._id,
       qrCode: qr._id,
       amount,
-      rewardSent: false,
+      rewardSent: "NO",
     });
 
     // Mark QR code as used

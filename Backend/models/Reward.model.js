@@ -4,7 +4,11 @@ const rewardSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   qrCode: { type: mongoose.Schema.Types.ObjectId, ref: "QrCode" },
   amount: Number,
-  rewardSent: { type: Boolean, default: false },
+  rewardSent: {
+    type: String,
+    enum: ["YES", "NO"],
+    default: "NO"
+  }
 }, {
   timestamps: true
 });

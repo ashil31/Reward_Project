@@ -43,10 +43,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rewardSent: { 
-      type: Boolean, 
-      default: false 
-    },
+    rewardSent: {
+      type: String,
+      enum: ["YES", "NO"],
+      default: "NO"
+    }
   },
 );
 
