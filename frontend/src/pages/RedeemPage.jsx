@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Congratulations from "../components/Congratulations";
 import rewardSound from "../assets/reward.mp3";
 // import { cn } from "../libs/utils";
 // import flowellIcon from "../assets/flowell-icon.png";
@@ -10,6 +9,7 @@ import BackgroundEffects from "../components/BackgroundEffects";
 import Loader from "../components/Loader";
 
 const RedeemPage = ({ loading ,setLoading }) => {
+  const navigate = useNavigate();
   const { token } = useParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +22,6 @@ const RedeemPage = ({ loading ,setLoading }) => {
     ifsc: "",
     beneficiaryName: "",
   });
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   // const [loading, setLocalLoading] = useState(false);
 
@@ -49,8 +48,7 @@ const RedeemPage = ({ loading ,setLoading }) => {
       await audio.play().catch((err) => {
         console.warn("🔇 Audio play failed:", err);
       });
-      
-      setSubmitted(true);
+      navigate("/congratulations", { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     } finally {
@@ -65,7 +63,6 @@ const RedeemPage = ({ loading ,setLoading }) => {
     <div className="relative min-h-screen w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <BackgroundEffects />
       <div className="relative z-20 min-h-screen flex items-center justify-center px-4 py-12 transition-all duration-500">
-        {!submitted ? (
           <form
             onSubmit={handleSubmit}
             className="bg-white dark:bg-[#111111] shadow-2xl rounded-3xl p-8 w-full max-w-lg space-y-6 transition-all duration-500"
@@ -254,9 +251,6 @@ const RedeemPage = ({ loading ,setLoading }) => {
               Submit
             </button>
           </form>
-        ) : (
-          <Congratulations />
-        )}
       </div>
     </div>
   );

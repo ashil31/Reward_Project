@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
 import { ThemeProvider } from "./context/ThemeContext";
 import AnnouncementBar from "./components/AnnouncementBar";
+import Congratulations from "./pages/Congratulations";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/redeem/:token" element={<RedeemPage loading={loading} setLoading={setLoading} />} />
             <Route path="/redeem-error" element={<RedeemError />} />
+            <Route path="/congratulations" element={<Congratulations />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>
