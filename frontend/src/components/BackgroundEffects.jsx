@@ -60,17 +60,23 @@ export default function BackgroundEffects() {
 }
 
 function CircleLogoSide({ icons }) {
+  const total = icons.length;
+
   return (
     <div className="circle-container">
-      {icons.map((src, i) => (
-        <img
-          key={i}
-          src={src}
-          alt={`Icon ${i + 1}`}
-          draggable={false}
-          className="icon-shadow"
-        />
-      ))}
+      {icons.map((src, i) => {
+        const delay = `-${(i / total) * 40}s`; // start earlier so spaced
+        return (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            draggable={false}
+            className="icon-shadow"
+            style={{ animationDelay: delay }}
+          />
+        );
+      })}
     </div>
   );
 }
