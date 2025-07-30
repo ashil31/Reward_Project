@@ -49,7 +49,6 @@ const RedeemPage = ({ loading ,setLoading }) => {
       await audio.play().catch((err) => {
         console.warn("🔇 Audio play failed:", err);
       });
-      setLoading(false);
       
       setSubmitted(true);
     } catch (err) {
