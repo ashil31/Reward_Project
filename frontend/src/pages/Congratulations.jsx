@@ -17,7 +17,7 @@ const Congratulations = () => {
   }, []);
 
   return (
-    <div className="relative w-screen h-screen flex items-center justify-center px-4 py-10 overflow-hidden">
+    <div className="relative w-screen h-screen flex items-center justify-center px-4 py-10 overflow-hidden dark:bg-black">
       {/* 🎊 Confetti */}
       <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
         <Lottie
