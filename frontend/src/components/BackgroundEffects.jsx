@@ -63,7 +63,7 @@ function CircleLogoSide({ icons }) {
   const iconsCount = icons.length;
 
   return (
-    <div style={spinStyle} className="relative w-[400px] h-[400px]">
+    <div style={spinStyle} className="relative w-[400px] h-[400px] animate-spin-slow">
       {icons.map((src, i) => {
         const angle = (360 / iconsCount) * i;
         const radians = (angle * Math.PI) / 180;
@@ -78,14 +78,14 @@ function CircleLogoSide({ icons }) {
             alt={`Icon ${i + 1}`}
             draggable={false}
             className="absolute icon-shadow"
-            style={{
+             style={{
               width: iconWidth,
               height: iconHeight,
               top: y,
               left: x,
-              transform: `rotate(${-angle}deg)`, // counter-rotate to stay upright
+              // counter-rotate the image to stay upright
+              transform: `rotate(${-angle}deg)`,
               transformOrigin: "center center",
-              transition: "transform 0.3s ease",
             }}
           />
         );

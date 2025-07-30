@@ -111,6 +111,9 @@ html.dark .moon > circle {
     transform: rotate(360deg);
   }
 }
+.animate-spin-slow {
+    animation: spin 20s linear infinite;
+}
 
 /* Dotted circle stroke with rounded caps and custom dash pattern */
 .dotted-circle {
