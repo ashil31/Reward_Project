@@ -4,41 +4,50 @@ import lightLogo from "../assets/flowell_logo_dark.png";
 import darkLogo from "../assets/flowell_logo_white.png";
 import { ThemeContext } from "../context/ThemeContext";
 
-const Loader = ({ onComplete }) => {
+const Loader = ({ active, onFinish }) => {
   const logoRef = useRef();
-  const loopingRef = useRef(); // to store the looping animation
+  const loopTl = useRef();
+  const exitTl = useRef();
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    // a timeline that loops zoom-in and zoom-out indefinitely
-    const loopTl = gsap.timeline({ repeat: -1, yoyo: true, defaults: { duration: 1.5, ease: "none" } });
-    loopTl.fromTo(logoRef.current, { scale: 0.5, opacity: 0 }, { scale: 1.2, opacity: 1 });
-
-    loopingRef.current = loopTl;
-
+    loopTl.current = gsap.timeline({
+      repeat: -1,
+      yoyo: true,
+      defaults: { duration: 1.2, ease: "power1.inOut" }
+    });
+    loopTl.current.fromTo(
+      logoRef.current,
+      { scale: 0.5, opacity: 0 },
+      { scale: 1.2, opacity: 1 }
+    );
     return () => {
-      loopingRef.current?.kill();
+      loopTl.current.kill();
+      exitTl.current?.kill();
     };
   }, []);
 
-  // when loading completes, fade out the logo and kill the looping animation
   useEffect(() => {
-    if (onComplete) {
-      const endTl = gsap.timeline({
-        onComplete: () => {
-          loopingRef.current?.kill();
-        },
+    if (!active) {
+      exitTl.current = gsap.timeline({
+        onStart: () => loopTl.current.pause(),
+        onComplete: onFinish
       });
-      endTl.to(logoRef.current, { scale: 0, opacity: 0, duration: 1 });
+      exitTl.current.to(logoRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power1.out"
+      });
     }
-  }, [onComplete]);
+  }, [active, onFinish]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-white dark:bg-black">
       <img
+        ref={logoRef}
         src={theme === "dark" ? darkLogo : lightLogo}
         alt="Loading..."
-        ref={logoRef}
         className="h-20"
       />
     </div>

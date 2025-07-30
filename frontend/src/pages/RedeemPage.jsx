@@ -9,7 +9,7 @@ import OccupationSelect from "../components/OccupationSelect ";
 import BackgroundEffects from "../components/BackgroundEffects";
 import Loader from "../components/Loader";
 
-const RedeemPage = () => {
+const RedeemPage = ({ loading ,setLoading }) => {
   const { token } = useParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -24,7 +24,7 @@ const RedeemPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLocalLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,6 +49,7 @@ const RedeemPage = () => {
       await audio.play().catch((err) => {
         console.warn("🔇 Audio play failed:", err);
       });
+      setLoading(false);
       
       setSubmitted(true);
     } catch (err) {
@@ -60,7 +61,7 @@ const RedeemPage = () => {
   };
 
   return loading ? (
-    <Loader onComplete={() => {}} />
+    <Loader active={true} onFinish={() => setLoading(false)} />
   ) : (
     <div className="relative min-h-screen w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <BackgroundEffects />
