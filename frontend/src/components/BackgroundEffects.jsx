@@ -4,11 +4,12 @@ import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
 import img4 from "../assets/img4.png";
 import { ThemeContext } from "../context/ThemeContext";
+import { useEffect, useRef } from "react";
 
 // Spin animation
-const spinStyle = {
-  animation: "spin 20s linear infinite",
-};
+// const spinStyle = {
+//   animation: "spin 20s linear infinite",
+// };
 
 const size = 400;
 const radius = 180;
@@ -59,32 +60,45 @@ export default function BackgroundEffects() {
 }
 
 function CircleLogoSide({ icons }) {
-  // Use the provided icons array
+  const containerRef = useRef();
   const iconsCount = icons.length;
 
+  useEffect(() => {
+    let raf;
+    let angleX = 0;
+    function tick() {
+      angleX = (angleX + 360 / (40 * 60)) % 360; // update per frame for 40s full rotation at 60fps
+      containerRef.current.style.transform = `rotate(${angleX}deg)`;
+      icons.forEach((_, i) => {
+        const angle = (360 / iconsCount) * i;
+        const img = containerRef.current.children[i];
+        img.style.transform = `rotate(${-angle - angleX}deg)`;
+      });
+      raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [icons, iconsCount]);
+
   return (
-    <div style={spinStyle} className="relative w-[400px] h-[400px] animate-spin-slow">
+    <div ref={containerRef} className="relative w-[400px] h-[400px]">
       {icons.map((src, i) => {
         const angle = (360 / iconsCount) * i;
         const radians = (angle * Math.PI) / 180;
-
         const x = size / 2 + radius * Math.cos(radians) - iconWidth / 2;
         const y = size / 2 + radius * Math.sin(radians) - iconHeight / 2;
-
         return (
           <img
             key={i}
             src={src}
-            alt={`Icon ${i + 1}`}
+            alt=""
             draggable={false}
             className="absolute icon-shadow"
-             style={{
+            style={{
               width: iconWidth,
               height: iconHeight,
               top: y,
               left: x,
-              // counter-rotate the image to stay upright
-              transform: `rotate(${-angle}deg)`,
               transformOrigin: "center center",
             }}
           />
