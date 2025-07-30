@@ -7,6 +7,7 @@ import rewardSound from "../assets/reward.mp3";
 // import flowellIcon from "../assets/flowell-icon.png";
 import OccupationSelect from "../components/OccupationSelect ";
 import BackgroundEffects from "../components/BackgroundEffects";
+import Loader from "../components/Loader";
 
 const RedeemPage = () => {
   const { token } = useParams();
@@ -23,6 +24,7 @@ const RedeemPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,6 +32,7 @@ const RedeemPage = () => {
 
   const handleSubmit = async (e) => {
     console.log(formData);
+    setLoading(true);
     e.preventDefault();
     try {
       const payload = {
@@ -52,7 +55,9 @@ const RedeemPage = () => {
     }
   };
 
-  return (
+  return loading ? (
+    <Loader onComplete={() => {}} />
+  ) : (
     <div className="relative min-h-screen w-full overflow-hidden bg-white dark:bg-black text-black dark:text-white">
       <BackgroundEffects />
       <div className="relative z-20 min-h-screen flex items-center justify-center px-4 py-12 transition-all duration-500">
