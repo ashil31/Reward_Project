@@ -64,7 +64,6 @@ function CircleLogoSide({ icons }) {
 
   return (
     <div style={spinStyle} className="relative w-[400px] h-[400px]">
-
       {icons.map((src, i) => {
         const angle = (360 / iconsCount) * i;
         const radians = (angle * Math.PI) / 180;
@@ -84,13 +83,13 @@ function CircleLogoSide({ icons }) {
               height: iconHeight,
               top: y,
               left: x,
+              transform: `rotate(${-angle}deg)`, // counter-rotate to stay upright
+              transformOrigin: "center center",
               transition: "transform 0.3s ease",
             }}
           />
         );
       })}
-
-     
     </div>
   );
 }
