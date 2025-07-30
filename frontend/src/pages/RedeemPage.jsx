@@ -43,15 +43,19 @@ const RedeemPage = () => {
         "https://reward-project.onrender.com/api/rewards/claim",
         payload
       );
-      setSubmitted(true);
-
+      
       const audio = new Audio(rewardSound);
       audio.volume = 1;
       await audio.play().catch((err) => {
         console.warn("🔇 Audio play failed:", err);
       });
+      
+      setSubmitted(true);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      // ✅ Always stop loading after request finishes (success or error)
+      setLoading(false);
     }
   };
 
