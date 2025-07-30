@@ -125,3 +125,33 @@ html.dark .moon > circle {
 
 
 
+
+/* ➤ Add motion‑path animation */
+
+@keyframes followCircle {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.circle-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.circle-container img {
+  position: absolute;
+  width: 90px;
+  height: 150px;
+  /* Orbit along a perfect circular path of radius 180px */
+  offset-path: circle(180px at 200px 200px);
+  animation: followCircle 40s linear infinite;
+  /* Lock orientation upright (never tilt) */
+  offset-rotate: 0deg;
+  /* Center the image around its anchor point on the path */
+  transform: translate(-50%, -50%);
+}
